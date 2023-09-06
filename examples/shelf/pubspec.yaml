@@ -1,4 +1,4 @@
-name: shelf_example
+name: shelf_example21
 version: 0.0.1
 description: A new shelf example project.
 publish_to: none
@@ -9,7 +9,3 @@ environment:
 dependencies:
   image:
   shelf: "1.4.0"
-
-globe:
-  build_settings:
-    dart_version: foo
