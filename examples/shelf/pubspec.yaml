@@ -9,3 +9,7 @@ environment:
 dependencies:
   image:
   shelf: "1.4.0"
+
+globe:
+  build_settings:
+    dart_version: foo
