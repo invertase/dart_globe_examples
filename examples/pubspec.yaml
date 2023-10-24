@@ -1,0 +1,11 @@
+name: 'dart_globe_example'
+description: An new Melos application
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dev_dependencies:
+  melos: ^3.2.0
+  globe_cli:

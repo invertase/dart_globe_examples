@@ -1,0 +1,15 @@
+name: 'dart_globe_example'
+
+packages:
+  - dart_frog/
+  - flutter_web/
+  - shelf/
+
+scripts:
+  deploy_backend:
+    description: Deploy dart_frog
+    run: /bin/sh -c cd "$MELOS_ROOT_PATH/dart_frog" && globe unlink && globe deploy
+
+  deploy_web:
+    description: Deploy flutter_web
+    run: cd "$MELOS_ROOT_PATH/flutter_web" && globe unlink && globe deploy

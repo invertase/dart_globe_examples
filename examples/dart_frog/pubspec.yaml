@@ -4,12 +4,13 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
-  dart_frog: ^1.0.0
+  dart_frog: ^1.0.1
+  shelf_cors_headers: ^0.1.5
 
 dev_dependencies:
-  mocktail: ^0.3.0
-  test: ^1.19.2
-  very_good_analysis: ^5.0.0
+  mocktail: ^1.0.1
+  test: ^1.24.8
+  very_good_analysis: ^5.1.0
