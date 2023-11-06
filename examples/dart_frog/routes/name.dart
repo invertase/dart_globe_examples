@@ -4,7 +4,7 @@ import 'package:dart_frog/dart_frog.dart';
 ///
 /// Read more about https://globe.dev/docs/getting-started
 Response onRequest(RequestContext context) {
-  const customerName = 'GLOBE';
+  const customerName = 'Juan Sanchez';
 
   return Response.json(
     body: {

@@ -12,4 +12,4 @@ const kPriceTextStyle = TextStyle(
 );
 
 // Replace this with your backend URL once you deployed your backend
-const backendBaseUrl = 'backend-in-latam-6xjozy4-flutterlatam.globeapp.dev';
+const backendBaseUrl = 'mrverdant13-oxp6nag-flutterlatam.globeapp.dev';

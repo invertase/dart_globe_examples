@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:js' as js;
 import 'package:flutter/material.dart';
 import 'package:flutter_web/constants.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +14,7 @@ class Header extends StatefulWidget {
 }
 
 class _HeaderState extends State<Header> {
-  late final String? customerName;
+  String customerName = '';
 
   @override
   void initState() {
@@ -25,24 +25,31 @@ class _HeaderState extends State<Header> {
   Future<void> getName() async {
     final url = Uri.https(
       backendBaseUrl,
-      'name',
+      'roman',
     );
-    final response = await http.get(url);
-    final jsonMap = jsonDecode(response.body);
+    final response =
+        await http.get(url, headers: {'content-type': 'text/plain'});
+    final name = response.body;
     setState(() {
-      customerName = jsonMap['name'];
+      customerName = name;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset('assets/images/logo.png'),
-        const SizedBox(width: 10.0),
-        if (customerName != null) Text(customerName!),
-      ],
+    return GestureDetector(
+      onTap: () {
+        js.context
+            .callMethod('open', ['https://linkedin.com/in/roman-maydana']);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/images/logo.png'),
+          const SizedBox(width: 10.0),
+          Text(customerName),
+        ],
+      ),
     );
   }
 }
