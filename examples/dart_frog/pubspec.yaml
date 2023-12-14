@@ -1,6 +1,6 @@
 name: dart_frog_example
 description: An new Dart Frog application
-version: 1.0.0+4
+version: 1.0.0+6
 publish_to: none
 
 environment:
