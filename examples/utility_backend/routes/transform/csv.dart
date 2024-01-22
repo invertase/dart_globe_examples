@@ -30,7 +30,7 @@ Future<Response> onRequest(RequestContext context) async {
   if (method == 'POST') {
     return _handlePost(request);
   } else {
-    return Response(
+    return Response.json(
       statusCode: HttpStatus.methodNotAllowed,
       body: 'Method not allowed',
     );
@@ -58,7 +58,7 @@ Future<Response> _handlePost(Request request) async {
   } else if (type == CsvType.xml.name) {
     return _handleXml(body);
   } else {
-    return Response(
+    return Response.json(
       statusCode: HttpStatus.badRequest,
       body: const BackendError(
         message: 'Invalid type',
@@ -94,7 +94,7 @@ Response _handleJson({
       }
 
       // Convert the List<Map> to a JSON string
-      return Response(
+      return Response.json(
         // Convert the List<Map> to a JSON string
         body: jsonEncode(jsonData),
       );
@@ -107,14 +107,14 @@ Response _handleJson({
           .toList();
 
       // Convert the List<List<String>> to a JSON string
-      return Response(
+      return Response.json(
         // Convert the List<Map> to a JSON string
         body: jsonEncode(jsonData),
       );
     }
   } catch (e) {
     logger.e(e);
-    return Response(
+    return Response.json(
       statusCode: HttpStatus.badRequest,
       body: const BackendError(
         message: 'Invalid CSV data',
@@ -125,7 +125,7 @@ Response _handleJson({
 }
 
 Response _handleXml(String body) {
-  return Response(
+  return Response.json(
     statusCode: HttpStatus.badRequest,
     body: const BackendError(
       message: 'XML is not supported yet',
