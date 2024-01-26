@@ -30,3 +30,4 @@ COPY --from=BUILDER /app/bin/server /app/bin/
 
 # Run the compiled server
 CMD ["./app/bin/server"]
+
