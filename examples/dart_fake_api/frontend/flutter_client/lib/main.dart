@@ -37,9 +37,11 @@ class MyHomePage extends StatelessWidget {
         future: http.get(uri),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
+            print(snapshot.error);
             return const Center(child: Text('Something went wrong!'));
           }
-          if (snapshot.hasData && snapshot.data != null) {
+          if (snapshot.hasData) {
+            print(snapshot.data!.body);
             final users = Users.fromJson(jsonDecode(snapshot.data!.body));
             return ListView.separated(
               itemCount: users.data.length,

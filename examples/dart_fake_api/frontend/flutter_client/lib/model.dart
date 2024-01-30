@@ -13,7 +13,9 @@ class Users {
 
   factory Users.fromJson(Map<String, dynamic> json) {
     return Users(
-      data: json['data'],
+      data: json['data'] != null
+          ? json['data'].map<User>((user) => User.fromJson(user)).toList()
+          : [],
       total: json['total'],
       limit: json['limit'],
       skip: json['skip'],
