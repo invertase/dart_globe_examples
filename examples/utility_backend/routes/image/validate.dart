@@ -11,12 +11,16 @@ Future<Response> onRequest(RequestContext context) async {
     }
 
     // Ensure the request's content-type is multipart/form-data
-    if (!context.request.headers.containsKey('multipart/form-data')) {
+    if (!context.request.headers.keys.contains('content-type') ||
+        !context.request.headers['content-type']!
+            .contains('multipart/form-data')) {
       return Response(
         statusCode: HttpStatus.badRequest,
         body: 'Invalid content type, expected multipart/form-data',
       );
     }
+
+    print('header multip part done');
 
     final file = await requestMultipartToImage(context.request);
     if (file == null) {

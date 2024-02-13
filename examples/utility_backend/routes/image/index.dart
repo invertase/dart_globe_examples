@@ -35,14 +35,14 @@ Future<Response> onRequest(RequestContext context) async {
             formData.append('image', file);
 
             // Send the request to the Dart Frog endpoint
-            fetch('https://utility-backend.globeapp.dev/image/validate', {
+            fetch('/image/validate', {
                 method: 'POST',
                 body: formData,
             })
-            .then(response => response.json())
+            .then(response => response.text())
             .then(data => {
                 // Display the response
-                document.getElementById('response').innerText = JSON.stringify(data, null, 2);
+                document.getElementById('response').innerText = data;
             })
             .catch(error => {
                 console.error('Error:', error);

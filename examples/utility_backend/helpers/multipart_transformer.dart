@@ -6,7 +6,8 @@ import 'package:mime/mime.dart';
 
 Future<img.Image?> requestMultipartToImage(Request request) async {
   // Ensure the request's content-type is multipart/form-data
-  if (!request.headers.containsKey('multipart/form-data')) {
+  if (!request.headers.keys.contains('content-type') ||
+      !request.headers['content-type']!.contains('multipart/form-data')) {
     throw const HttpException('Invalid content type');
   }
 
