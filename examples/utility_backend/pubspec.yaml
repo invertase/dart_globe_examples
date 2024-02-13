@@ -12,6 +12,8 @@ dependencies:
   shelf_cors_headers: ^0.1.5
   eventsource: ^0.4.0
   stream_channel: ^2.1.2
+  image: ^4.1.7
+  mime: ^1.0.5
 
 dev_dependencies:
   mocktail: ^1.0.3
