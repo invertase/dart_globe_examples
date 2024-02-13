@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:image/image.dart' as img;
 
 class FileValidator {
@@ -7,7 +6,9 @@ class FileValidator {
   static const maxFileSizeBytes = 10 * 1024 * 1024; // 10MB
   static const allowedFormats = ['jpeg', 'png'];
 
-  static Future<ValidationResponse> image(img.Image image) async {
+  static Future<ValidationResponse> image(
+    img.Image image,
+  ) async {
     // 1. Get Image Dimensions
     final width = image.width;
     final height = image.height;
@@ -22,7 +23,7 @@ Image exceeds maximum dimensions ($maxImageWidth x $maxImageHeight)
     }
 
     // 2. Check File Size
-    final fileSize = await imageFile.length();
+    final fileSize = image.length;
     if (fileSize > maxFileSizeBytes) {
       return ValidationResponse(
         validated: false,
@@ -31,7 +32,7 @@ Image exceeds maximum dimensions ($maxImageWidth x $maxImageHeight)
     }
 
     // 3. Verify Format
-    final format = imageFile.path.split('.').last.toLowerCase();
+    final format = image.format.name.toLowerCase();
     if (!allowedFormats.contains(format)) {
       return ValidationResponse(
         validated: false,
