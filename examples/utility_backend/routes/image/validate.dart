@@ -5,42 +5,49 @@ import '../../helpers/multipart_transformer.dart';
 import '../../helpers/validate_image.dart';
 
 Future<Response> onRequest(RequestContext context) async {
-  if (context.request.method != HttpMethod.post) {
-    return Response(statusCode: HttpStatus.methodNotAllowed);
-  }
+  try {
+    if (context.request.method != HttpMethod.post) {
+      return Response(statusCode: HttpStatus.methodNotAllowed);
+    }
 
-  // Ensure the request's content-type is multipart/form-data
-  if (!context.request.headers.containsKey('multipart/form-data')) {
+    // Ensure the request's content-type is multipart/form-data
+    if (!context.request.headers.containsKey('multipart/form-data')) {
+      return Response(
+        statusCode: HttpStatus.badRequest,
+        body: 'Invalid content type, expected multipart/form-data',
+      );
+    }
+
+    final file = await requestMultipartToImage(context.request);
+    if (file == null) {
+      return Response(
+        statusCode: HttpStatus.unprocessableEntity,
+        body: 'Invalid image file',
+      );
+    }
+
+    final validationResponse = await FileValidator.image(file);
+
+    if (validationResponse.validated) {
+      return Response.json(
+        body: {
+          'status': 'success',
+          'message': validationResponse.message,
+        },
+      );
+    } else {
+      return Response.json(
+        statusCode: HttpStatus.unprocessableEntity,
+        body: {
+          'status': 'error',
+          'message': validationResponse.message,
+        },
+      );
+    }
+  } catch (e) {
     return Response(
-      statusCode: HttpStatus.badRequest,
-      body: 'Invalid content type, expected multipart/form-data',
-    );
-  }
-
-  final file = await requestMultipartToImage(context.request);
-  if (file == null) {
-    return Response(
-      statusCode: HttpStatus.unprocessableEntity,
-      body: 'Invalid image file',
-    );
-  }
-
-  final validationResponse = await FileValidator.image(file);
-
-  if (validationResponse.validated) {
-    return Response.json(
-      body: {
-        'status': 'success',
-        'message': validationResponse.message,
-      },
-    );
-  } else {
-    return Response.json(
-      statusCode: HttpStatus.unprocessableEntity,
-      body: {
-        'status': 'error',
-        'message': validationResponse.message,
-      },
+      body: 'An error occurred: $e',
+      statusCode: HttpStatus.serviceUnavailable,
     );
   }
 }
