@@ -1,0 +1,4 @@
+# This could represent the input text
+class: TextToSlugify 
+fields:
+  text: String 

@@ -1,0 +1,4 @@
+example:
+  - hello:
+slugify:
+  - slugify:
