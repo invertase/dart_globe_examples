@@ -1,4 +1,0 @@
-# This would represent the slugified output
-class: SlugifiedText
-fields:
-  slug: String 

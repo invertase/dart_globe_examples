@@ -2,8 +2,6 @@ import 'package:minipodglobe_client/minipodglobe_client.dart';
 import 'package:flutter/material.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
-import 'package:minipodglobe_client/minipodglobe_client.dart';
-
 // Sets up a singleton client object that can be used to talk to the server from
 // anywhere in our app. The client is generated from your server code.
 // The client is set up to connect to a Serverpod running on a local server on
@@ -26,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Serverpod Mini Globe Slugify'),
+      home: const MyHomePage(title: 'Serverpod Example'),
     );
   }
 }
@@ -41,21 +39,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
+  // These fields hold the last result or error message that we've received from
+  // the server or null if no result exists yet.
   String? _resultMessage;
   String? _errorMessage;
 
   final _textEditingController = TextEditingController();
 
-  void _callSlugify() async {
+  // Calls the `hello` method of the `example` endpoint. Will set either the
+  // `_resultMessage` or `_errorMessage` field, depending on if the call
+  // is successful.
+  void _callHello() async {
     try {
-      final result = await client.slugify.slugify(
-        TextToSlugify(
-          text: _textEditingController.text,
-        ),
-      );
+      final result = await client.example.hello(_textEditingController.text);
       setState(() {
         _errorMessage = null;
-        _resultMessage = result.slug;
+        _resultMessage = result;
       });
     } catch (e) {
       setState(() {
@@ -79,14 +78,14 @@ class MyHomePageState extends State<MyHomePage> {
               child: TextField(
                 controller: _textEditingController,
                 decoration: const InputDecoration(
-                  hintText: 'Enter your title',
+                  hintText: 'Enter your name',
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: ElevatedButton(
-                onPressed: _callSlugify,
+                onPressed: _callHello,
                 child: const Text('Send to Server'),
               ),
             ),

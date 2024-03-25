@@ -10,8 +10,6 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/example_endpoint.dart' as _i2;
-import '../endpoints/slugify_endpoint.dart' as _i3;
-import 'package:minipodglobe_server/src/generated/text.slugify.dart' as _i4;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -22,13 +20,7 @@ class Endpoints extends _i1.EndpointDispatch {
           server,
           'example',
           null,
-        ),
-      'slugify': _i3.SlugifyEndpoint()
-        ..initialize(
-          server,
-          'slugify',
-          null,
-        ),
+        )
     };
     connectors['example'] = _i1.EndpointConnector(
       name: 'example',
@@ -50,30 +42,6 @@ class Endpoints extends _i1.EndpointDispatch {
               (endpoints['example'] as _i2.ExampleEndpoint).hello(
             session,
             params['name'],
-          ),
-        )
-      },
-    );
-    connectors['slugify'] = _i1.EndpointConnector(
-      name: 'slugify',
-      endpoint: endpoints['slugify']!,
-      methodConnectors: {
-        'slugify': _i1.MethodConnector(
-          name: 'slugify',
-          params: {
-            'payload': _i1.ParameterDescription(
-              name: 'payload',
-              type: _i1.getType<_i4.TextToSlugify>(),
-              nullable: false,
-            )
-          },
-          call: (
-            _i1.Session session,
-            Map<String, dynamic> params,
-          ) async =>
-              (endpoints['slugify'] as _i3.SlugifyEndpoint).slugify(
-            session,
-            params['payload'],
           ),
         )
       },

@@ -10,9 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'package:minipodglobe_client/src/protocol/slugify.text.dart' as _i3;
-import 'package:minipodglobe_client/src/protocol/text.slugify.dart' as _i4;
-import 'protocol.dart' as _i5;
+import 'protocol.dart' as _i3;
 
 /// {@category Endpoint}
 class EndpointExample extends _i1.EndpointRef {
@@ -28,21 +26,6 @@ class EndpointExample extends _i1.EndpointRef {
       );
 }
 
-/// {@category Endpoint}
-class EndpointSlugify extends _i1.EndpointRef {
-  EndpointSlugify(_i1.EndpointCaller caller) : super(caller);
-
-  @override
-  String get name => 'slugify';
-
-  _i2.Future<_i3.SlugifiedText> slugify(_i4.TextToSlugify payload) =>
-      caller.callServerEndpoint<_i3.SlugifiedText>(
-        'slugify',
-        'slugify',
-        {'payload': payload},
-      );
-}
-
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
@@ -52,25 +35,19 @@ class Client extends _i1.ServerpodClient {
     Duration? connectionTimeout,
   }) : super(
           host,
-          _i5.Protocol(),
+          _i3.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
           connectionTimeout: connectionTimeout,
         ) {
     example = EndpointExample(this);
-    slugify = EndpointSlugify(this);
   }
 
   late final EndpointExample example;
 
-  late final EndpointSlugify slugify;
-
   @override
-  Map<String, _i1.EndpointRef> get endpointRefLookup => {
-        'example': example,
-        'slugify': slugify,
-      };
+  Map<String, _i1.EndpointRef> get endpointRefLookup => {'example': example};
 
   @override
   Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};

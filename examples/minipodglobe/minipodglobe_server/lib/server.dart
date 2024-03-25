@@ -8,6 +8,7 @@ import 'src/generated/endpoints.dart';
 // This is the starting point of your Serverpod server.
 void run(List<String> args) async {
   // Initialize Serverpod and connect it with your generated code.
+
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
   final config = ServerConfig(
     port: port,
@@ -15,6 +16,7 @@ void run(List<String> args) async {
     publicHost: 'localhost',
     publicPort: port,
   );
+
   final pod = Serverpod(
     args,
     config: ServerpodConfig(apiServer: config),
